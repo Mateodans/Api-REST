@@ -5,9 +5,17 @@ function logError(err, req, res, next) {
 
 function errorHandler(err, req, res, next) {
     res.status(500).json({
-        message: error.message,
-        satck: error.satck
+        message: err.message,
+        satck: err.satck
     })
 }
 
-module.exports = { logError, errorHandler }
+function boomErrorHandler(err, req, res, next) {
+    if (err.isBoom) {
+        const { output } = err
+        res.status(output.statusCode).json(output.payload)
+    }
+    next(err)
+}
+
+module.exports = { logError, errorHandler, boomErrorHandler }
