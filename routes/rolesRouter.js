@@ -1,33 +1,33 @@
 const { response } = require('express')
 const express = require('express')
 
-const ProductsService = require('./../services/productService')
-const validatorHandler = require('./../middlewares/validatorHandler')
-const { createProductSchema, updateProductSchema, getProductSchema } = require('./../schemas/productSchema')
+const rolesService = require('../services/roleService')
+const validatorHandler = require('../middlewares/validatorHandler')
+const { createRoleSchema, updateRoleSchema, getRoleSchema } = require('../schemas/roleSchema')
 
 const router = express.Router()
-const service = new ProductsService()
+const service = new rolesService()
 
 router.get('/', async(req, res) => {
-    const products = await service.find()
-    res.json(products)
+    const roles = await service.find()
+    res.json(roles)
 })
 
 router.post('/',
-    validatorHandler(createProductSchema, 'body'),
+    validatorHandler(createRoleSchema, 'body'),
     async(req, res) => {
         const body = req.body
-        const newProduct = await service.create(body)
-        res.status(201).json(newProduct)
+        const newrole = await service.create(body)
+        res.status(201).json(newrole)
     })
 
 router.get('/:id',
-    validatorHandler(getProductSchema, 'params'),
+    validatorHandler(getRoleSchema, 'params'),
     async(req, res, next) => {
         try {
             const { id } = req.params
-            const product = await service.findOne(id)
-            res.json(product)
+            const role = await service.findOne(id)
+            res.json(role)
         } catch (error) {
             next(err)
         }
@@ -35,14 +35,14 @@ router.get('/:id',
     })
 
 router.patch('/:id',
-    validatorHandler(getProductSchema, 'params'),
-    validatorHandler(updateProductSchema, 'body'),
+    validatorHandler(getRoleSchema, 'params'),
+    validatorHandler(updateRoleSchema, 'body'),
     async(req, res, next) => {
         try {
             const { id } = req.params
             const body = req.body
-            const product = await service.update(id, body)
-            res.json(product)
+            const role = await service.update(id, body)
+            res.json(role)
         } catch (error) {
             next(error)
         }

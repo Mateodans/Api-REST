@@ -1,9 +1,10 @@
 const express = require('express')
 const routerApi = require('./routes')
 const cors = require('cors')
+const mongoose = require('mongoose')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 const { logError, errorHandler, boomErrorHandler } = require('./middlewares/errorHandler')
 
@@ -30,6 +31,11 @@ routerApi(app)
 app.use(logError)
 app.use(boomErrorHandler)
 app.use(errorHandler)
+
+mongoose
+    .connect(process.env.MONGODB_URI)
+    .then(() => console.log('connected to mongoDB'))
+    .catch((error) => console.log(error))
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`Example app listening at http://localhost:${port}`)
