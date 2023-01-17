@@ -12,10 +12,10 @@ class UserService {
         for (let i = 0; i < limit; i++) {
             this.user.push({
                 id: faker.datatype.uuid(),
-                name: faker.name.userName(),
-                lastName: faker.name.userlastName(),
-                age: faker.date.userAge(),
-                addres: faker.address.userAddres()
+                name: faker.name.firstName(),
+                lastName: faker.name.lastName(),
+                age: faker.date.age(),
+                addres: faker.address.addres()
             })
         }
     }

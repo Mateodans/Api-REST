@@ -12,8 +12,8 @@ class RoleService {
         for (let i = 0; i < limit; i++) {
             this.roles.push({
                 id: faker.datatype.uuid(),
-                name: faker.name.roleName(),
-                description: faker.definitions.roleDescription(),
+                name: faker.name.findName(),
+                description: faker.name.jobDescriptor(),
             })
         }
     }

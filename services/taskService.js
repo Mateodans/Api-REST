@@ -12,8 +12,8 @@ class TaskService {
         for (let i = 0; i < limit; i++) {
             this.task.push({
                 id: faker.datatype.uuid(),
-                name: faker.name.taskName(),
-                description: faker.definitions.taksDescription()
+                name: faker.name.findName(),
+                description: faker.name.jobDescriptor()
             })
         }
     }

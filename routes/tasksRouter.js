@@ -1,12 +1,12 @@
 const { response } = require('express')
 const express = require('express')
 
-const tasksService = require('../services/taskService')
+const taskService = require('../services/taskService')
 const validatorHandler = require('../middlewares/validatorHandler')
 const { createTaskSchema, updateTaskSchema, getTaskSchema } = require('../schemas/taskSchema')
 
 const router = express.Router()
-const service = new tasksService()
+const service = new taskService()
 
 router.get('/', async(req, res) => {
     const tasks = await service.find()

@@ -1,12 +1,12 @@
 const { response } = require('express')
 const express = require('express')
 
-const rolesService = require('../services/roleService')
+const roleService = require('../services/roleService')
 const validatorHandler = require('../middlewares/validatorHandler')
 const { createRoleSchema, updateRoleSchema, getRoleSchema } = require('../schemas/roleSchema')
 
 const router = express.Router()
-const service = new rolesService()
+const service = new roleService()
 
 router.get('/', async(req, res) => {
     const roles = await service.find()
@@ -17,8 +17,8 @@ router.post('/',
     validatorHandler(createRoleSchema, 'body'),
     async(req, res) => {
         const body = req.body
-        const newrole = await service.create(body)
-        res.status(201).json(newrole)
+        const newRole = await service.create(body)
+        res.status(201).json(newRole)
     })
 
 router.get('/:id',
@@ -58,7 +58,5 @@ router.delete('/:id', async(req, res) => {
 router.get('/filter', (req, res) => {
     res.send('yo soy un filter')
 })
-
-
 
 module.exports = router
