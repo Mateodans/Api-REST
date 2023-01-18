@@ -3,14 +3,14 @@ const boom = require('@hapi/boom')
 
 class UserService {
     constructor() {
-        this.user = []
+        this.users = []
         this.generate()
     }
 
     generate() {
         const limit = 100
         for (let i = 0; i < limit; i++) {
-            this.user.push({
+            this.users.push({
                 id: faker.datatype.uuid(),
                 name: faker.name.firstName(),
                 lastName: faker.name.lastName(),
@@ -25,14 +25,14 @@ class UserService {
             id: faker.datatype.uuid(),
             ...data
         }
-        this.user.push(newUser)
+        this.users.push(newUser)
         return newUser
     }
 
     find() {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(this.user)
+                resolve(this.users)
             }, 5000)
         })
     }
@@ -47,7 +47,7 @@ class UserService {
     }
 
     async update(id, changes) {
-        const index = this.user.findIndex(item => item.id === id)
+        const index = this.users.findIndex(item => item.id === id)
         if (index === -1) {
             throw boom.notFound('user not found')
         }
@@ -68,5 +68,7 @@ class UserService {
         return { id }
     }
 }
+
+
 
 module.exports = UserService

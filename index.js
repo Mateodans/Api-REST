@@ -2,6 +2,7 @@ const express = require('express')
 const routerApi = require('./routes')
 const cors = require('cors')
 const mongoose = require('mongoose')
+require('dotenv').config()
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -35,7 +36,7 @@ app.use(errorHandler)
 mongoose
     .connect(process.env.MONGODB_URI)
     .then(() => console.log('connected to mongoDB'))
-    .catch((error) => console.log(error))
+    .catch((error) => console.error(error))
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`Example app listening at http://localhost:${port}`)
